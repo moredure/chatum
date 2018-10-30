@@ -23,76 +23,112 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.ProtoPackageIsVersion2 // please upgrade the proto package
 
-type HelloRequest struct {
-	Name                 string   `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+type EventType int32
+
+const (
+	EventType_DEFAULT EventType = 0
+)
+
+var EventType_name = map[int32]string{
+	0: "DEFAULT",
+}
+var EventType_value = map[string]int32{
+	"DEFAULT": 0,
 }
 
-func (m *HelloRequest) Reset()         { *m = HelloRequest{} }
-func (m *HelloRequest) String() string { return proto.CompactTextString(m) }
-func (*HelloRequest) ProtoMessage()    {}
-func (*HelloRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_chat_d7f260270f614c48, []int{0}
+func (x EventType) String() string {
+	return proto.EnumName(EventType_name, int32(x))
 }
-func (m *HelloRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_HelloRequest.Unmarshal(m, b)
-}
-func (m *HelloRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_HelloRequest.Marshal(b, m, deterministic)
-}
-func (dst *HelloRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_HelloRequest.Merge(dst, src)
-}
-func (m *HelloRequest) XXX_Size() int {
-	return xxx_messageInfo_HelloRequest.Size(m)
-}
-func (m *HelloRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_HelloRequest.DiscardUnknown(m)
+func (EventType) EnumDescriptor() ([]byte, []int) {
+	return fileDescriptor_chat_2951844f32d85c95, []int{0}
 }
 
-var xxx_messageInfo_HelloRequest proto.InternalMessageInfo
+type ClientSideEvent struct {
+	Type                 EventType `protobuf:"varint,1,opt,name=type,proto3,enum=chatum.EventType" json:"type,omitempty"`
+	Message              string    `protobuf:"bytes,2,opt,name=message,proto3" json:"message,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}  `json:"-"`
+	XXX_unrecognized     []byte    `json:"-"`
+	XXX_sizecache        int32     `json:"-"`
+}
 
-func (m *HelloRequest) GetName() string {
+func (m *ClientSideEvent) Reset()         { *m = ClientSideEvent{} }
+func (m *ClientSideEvent) String() string { return proto.CompactTextString(m) }
+func (*ClientSideEvent) ProtoMessage()    {}
+func (*ClientSideEvent) Descriptor() ([]byte, []int) {
+	return fileDescriptor_chat_2951844f32d85c95, []int{0}
+}
+func (m *ClientSideEvent) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_ClientSideEvent.Unmarshal(m, b)
+}
+func (m *ClientSideEvent) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_ClientSideEvent.Marshal(b, m, deterministic)
+}
+func (dst *ClientSideEvent) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ClientSideEvent.Merge(dst, src)
+}
+func (m *ClientSideEvent) XXX_Size() int {
+	return xxx_messageInfo_ClientSideEvent.Size(m)
+}
+func (m *ClientSideEvent) XXX_DiscardUnknown() {
+	xxx_messageInfo_ClientSideEvent.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_ClientSideEvent proto.InternalMessageInfo
+
+func (m *ClientSideEvent) GetType() EventType {
 	if m != nil {
-		return m.Name
+		return m.Type
+	}
+	return EventType_DEFAULT
+}
+
+func (m *ClientSideEvent) GetMessage() string {
+	if m != nil {
+		return m.Message
 	}
 	return ""
 }
 
-type HelloReply struct {
-	Message              string   `protobuf:"bytes,1,opt,name=message,proto3" json:"message,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+type ServerSideEvent struct {
+	Type                 EventType `protobuf:"varint,1,opt,name=type,proto3,enum=chatum.EventType" json:"type,omitempty"`
+	Message              string    `protobuf:"bytes,2,opt,name=message,proto3" json:"message,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}  `json:"-"`
+	XXX_unrecognized     []byte    `json:"-"`
+	XXX_sizecache        int32     `json:"-"`
 }
 
-func (m *HelloReply) Reset()         { *m = HelloReply{} }
-func (m *HelloReply) String() string { return proto.CompactTextString(m) }
-func (*HelloReply) ProtoMessage()    {}
-func (*HelloReply) Descriptor() ([]byte, []int) {
-	return fileDescriptor_chat_d7f260270f614c48, []int{1}
+func (m *ServerSideEvent) Reset()         { *m = ServerSideEvent{} }
+func (m *ServerSideEvent) String() string { return proto.CompactTextString(m) }
+func (*ServerSideEvent) ProtoMessage()    {}
+func (*ServerSideEvent) Descriptor() ([]byte, []int) {
+	return fileDescriptor_chat_2951844f32d85c95, []int{1}
 }
-func (m *HelloReply) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_HelloReply.Unmarshal(m, b)
+func (m *ServerSideEvent) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_ServerSideEvent.Unmarshal(m, b)
 }
-func (m *HelloReply) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_HelloReply.Marshal(b, m, deterministic)
+func (m *ServerSideEvent) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_ServerSideEvent.Marshal(b, m, deterministic)
 }
-func (dst *HelloReply) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_HelloReply.Merge(dst, src)
+func (dst *ServerSideEvent) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ServerSideEvent.Merge(dst, src)
 }
-func (m *HelloReply) XXX_Size() int {
-	return xxx_messageInfo_HelloReply.Size(m)
+func (m *ServerSideEvent) XXX_Size() int {
+	return xxx_messageInfo_ServerSideEvent.Size(m)
 }
-func (m *HelloReply) XXX_DiscardUnknown() {
-	xxx_messageInfo_HelloReply.DiscardUnknown(m)
+func (m *ServerSideEvent) XXX_DiscardUnknown() {
+	xxx_messageInfo_ServerSideEvent.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_HelloReply proto.InternalMessageInfo
+var xxx_messageInfo_ServerSideEvent proto.InternalMessageInfo
 
-func (m *HelloReply) GetMessage() string {
+func (m *ServerSideEvent) GetType() EventType {
+	if m != nil {
+		return m.Type
+	}
+	return EventType_DEFAULT
+}
+
+func (m *ServerSideEvent) GetMessage() string {
 	if m != nil {
 		return m.Message
 	}
@@ -100,8 +136,9 @@ func (m *HelloReply) GetMessage() string {
 }
 
 func init() {
-	proto.RegisterType((*HelloRequest)(nil), "chatum.HelloRequest")
-	proto.RegisterType((*HelloReply)(nil), "chatum.HelloReply")
+	proto.RegisterType((*ClientSideEvent)(nil), "chatum.ClientSideEvent")
+	proto.RegisterType((*ServerSideEvent)(nil), "chatum.ServerSideEvent")
+	proto.RegisterEnum("chatum.EventType", EventType_name, EventType_value)
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -112,81 +149,116 @@ var _ grpc.ClientConn
 // is compatible with the grpc package it is being compiled against.
 const _ = grpc.SupportPackageIsVersion4
 
-// GreeterClient is the client API for Greeter service.
+// ChatumClient is the client API for Chatum service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
-type GreeterClient interface {
-	SayHello(ctx context.Context, in *HelloRequest, opts ...grpc.CallOption) (*HelloReply, error)
+type ChatumClient interface {
+	SayHello(ctx context.Context, opts ...grpc.CallOption) (Chatum_SayHelloClient, error)
 }
 
-type greeterClient struct {
+type chatumClient struct {
 	cc *grpc.ClientConn
 }
 
-func NewGreeterClient(cc *grpc.ClientConn) GreeterClient {
-	return &greeterClient{cc}
+func NewChatumClient(cc *grpc.ClientConn) ChatumClient {
+	return &chatumClient{cc}
 }
 
-func (c *greeterClient) SayHello(ctx context.Context, in *HelloRequest, opts ...grpc.CallOption) (*HelloReply, error) {
-	out := new(HelloReply)
-	err := c.cc.Invoke(ctx, "/chatum.Greeter/SayHello", in, out, opts...)
+func (c *chatumClient) SayHello(ctx context.Context, opts ...grpc.CallOption) (Chatum_SayHelloClient, error) {
+	stream, err := c.cc.NewStream(ctx, &_Chatum_serviceDesc.Streams[0], "/chatum.Chatum/SayHello", opts...)
 	if err != nil {
 		return nil, err
 	}
-	return out, nil
+	x := &chatumSayHelloClient{stream}
+	return x, nil
 }
 
-// GreeterServer is the server API for Greeter service.
-type GreeterServer interface {
-	SayHello(context.Context, *HelloRequest) (*HelloReply, error)
+type Chatum_SayHelloClient interface {
+	Send(*ClientSideEvent) error
+	Recv() (*ServerSideEvent, error)
+	grpc.ClientStream
 }
 
-func RegisterGreeterServer(s *grpc.Server, srv GreeterServer) {
-	s.RegisterService(&_Greeter_serviceDesc, srv)
+type chatumSayHelloClient struct {
+	grpc.ClientStream
 }
 
-func _Greeter_SayHello_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(HelloRequest)
-	if err := dec(in); err != nil {
+func (x *chatumSayHelloClient) Send(m *ClientSideEvent) error {
+	return x.ClientStream.SendMsg(m)
+}
+
+func (x *chatumSayHelloClient) Recv() (*ServerSideEvent, error) {
+	m := new(ServerSideEvent)
+	if err := x.ClientStream.RecvMsg(m); err != nil {
 		return nil, err
 	}
-	if interceptor == nil {
-		return srv.(GreeterServer).SayHello(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/chatum.Greeter/SayHello",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(GreeterServer).SayHello(ctx, req.(*HelloRequest))
-	}
-	return interceptor(ctx, in, info, handler)
+	return m, nil
 }
 
-var _Greeter_serviceDesc = grpc.ServiceDesc{
-	ServiceName: "chatum.Greeter",
-	HandlerType: (*GreeterServer)(nil),
-	Methods: []grpc.MethodDesc{
+// ChatumServer is the server API for Chatum service.
+type ChatumServer interface {
+	SayHello(Chatum_SayHelloServer) error
+}
+
+func RegisterChatumServer(s *grpc.Server, srv ChatumServer) {
+	s.RegisterService(&_Chatum_serviceDesc, srv)
+}
+
+func _Chatum_SayHello_Handler(srv interface{}, stream grpc.ServerStream) error {
+	return srv.(ChatumServer).SayHello(&chatumSayHelloServer{stream})
+}
+
+type Chatum_SayHelloServer interface {
+	Send(*ServerSideEvent) error
+	Recv() (*ClientSideEvent, error)
+	grpc.ServerStream
+}
+
+type chatumSayHelloServer struct {
+	grpc.ServerStream
+}
+
+func (x *chatumSayHelloServer) Send(m *ServerSideEvent) error {
+	return x.ServerStream.SendMsg(m)
+}
+
+func (x *chatumSayHelloServer) Recv() (*ClientSideEvent, error) {
+	m := new(ClientSideEvent)
+	if err := x.ServerStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
+var _Chatum_serviceDesc = grpc.ServiceDesc{
+	ServiceName: "chatum.Chatum",
+	HandlerType: (*ChatumServer)(nil),
+	Methods:     []grpc.MethodDesc{},
+	Streams: []grpc.StreamDesc{
 		{
-			MethodName: "SayHello",
-			Handler:    _Greeter_SayHello_Handler,
+			StreamName:    "SayHello",
+			Handler:       _Chatum_SayHello_Handler,
+			ServerStreams: true,
+			ClientStreams: true,
 		},
 	},
-	Streams:  []grpc.StreamDesc{},
 	Metadata: "chat.proto",
 }
 
-func init() { proto.RegisterFile("chat.proto", fileDescriptor_chat_d7f260270f614c48) }
+func init() { proto.RegisterFile("chat.proto", fileDescriptor_chat_2951844f32d85c95) }
 
-var fileDescriptor_chat_d7f260270f614c48 = []byte{
-	// 140 bytes of a gzipped FileDescriptorProto
+var fileDescriptor_chat_2951844f32d85c95 = []byte{
+	// 181 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0xe2, 0x4a, 0xce, 0x48, 0x2c,
-	0xd1, 0x2b, 0x28, 0xca, 0x2f, 0xc9, 0x17, 0x62, 0x03, 0xb1, 0x4b, 0x73, 0x95, 0x94, 0xb8, 0x78,
-	0x3c, 0x52, 0x73, 0x72, 0xf2, 0x83, 0x52, 0x0b, 0x4b, 0x53, 0x8b, 0x4b, 0x84, 0x84, 0xb8, 0x58,
-	0xf2, 0x12, 0x73, 0x53, 0x25, 0x18, 0x15, 0x18, 0x35, 0x38, 0x83, 0xc0, 0x6c, 0x25, 0x35, 0x2e,
-	0x2e, 0xa8, 0x9a, 0x82, 0x9c, 0x4a, 0x21, 0x09, 0x2e, 0xf6, 0xdc, 0xd4, 0xe2, 0xe2, 0xc4, 0x74,
-	0x98, 0x22, 0x18, 0xd7, 0xc8, 0x91, 0x8b, 0xdd, 0xbd, 0x28, 0x35, 0xb5, 0x24, 0xb5, 0x48, 0xc8,
-	0x8c, 0x8b, 0x23, 0x38, 0xb1, 0x12, 0xac, 0x4b, 0x48, 0x44, 0x0f, 0x62, 0x97, 0x1e, 0xb2, 0x45,
-	0x52, 0x42, 0x68, 0xa2, 0x05, 0x39, 0x95, 0x4a, 0x0c, 0x49, 0x6c, 0x60, 0xd7, 0x19, 0x03, 0x02,
-	0x00, 0x00, 0xff, 0xff, 0xe8, 0xdc, 0x5c, 0xc2, 0xab, 0x00, 0x00, 0x00,
+	0xd1, 0x2b, 0x28, 0xca, 0x2f, 0xc9, 0x17, 0x62, 0x03, 0xb1, 0x4b, 0x73, 0x95, 0x82, 0xb8, 0xf8,
+	0x9d, 0x73, 0x32, 0x53, 0xf3, 0x4a, 0x82, 0x33, 0x53, 0x52, 0x5d, 0xcb, 0x52, 0xf3, 0x4a, 0x84,
+	0x54, 0xb9, 0x58, 0x4a, 0x2a, 0x0b, 0x52, 0x25, 0x18, 0x15, 0x18, 0x35, 0xf8, 0x8c, 0x04, 0xf5,
+	0x20, 0x2a, 0xf5, 0xc0, 0x92, 0x21, 0x95, 0x05, 0xa9, 0x41, 0x60, 0x69, 0x21, 0x09, 0x2e, 0xf6,
+	0xdc, 0xd4, 0xe2, 0xe2, 0xc4, 0xf4, 0x54, 0x09, 0x26, 0x05, 0x46, 0x0d, 0xce, 0x20, 0x18, 0x17,
+	0x64, 0x66, 0x70, 0x6a, 0x51, 0x59, 0x6a, 0x11, 0xf5, 0xcc, 0xd4, 0x92, 0xe0, 0xe2, 0x84, 0x2b,
+	0x16, 0xe2, 0xe6, 0x62, 0x77, 0x71, 0x75, 0x73, 0x0c, 0xf5, 0x09, 0x11, 0x60, 0x30, 0xf2, 0xe1,
+	0x62, 0x73, 0x06, 0x9b, 0x26, 0xe4, 0xc4, 0xc5, 0x11, 0x9c, 0x58, 0xe9, 0x91, 0x9a, 0x93, 0x93,
+	0x2f, 0x24, 0x0e, 0xb3, 0x02, 0xcd, 0x77, 0x52, 0x70, 0x09, 0x34, 0x27, 0x2a, 0x31, 0x68, 0x30,
+	0x1a, 0x30, 0x26, 0xb1, 0x81, 0x83, 0xc7, 0x18, 0x10, 0x00, 0x00, 0xff, 0xff, 0xc8, 0x00, 0x1d,
+	0xaf, 0x2c, 0x01, 0x00, 0x00,
 }
