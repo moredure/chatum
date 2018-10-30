@@ -40,7 +40,7 @@ func (x EventType) String() string {
 	return proto.EnumName(EventType_name, int32(x))
 }
 func (EventType) EnumDescriptor() ([]byte, []int) {
-	return fileDescriptor_chat_2951844f32d85c95, []int{0}
+	return fileDescriptor_chat_e03d79763655cc5e, []int{0}
 }
 
 type ClientSideEvent struct {
@@ -55,7 +55,7 @@ func (m *ClientSideEvent) Reset()         { *m = ClientSideEvent{} }
 func (m *ClientSideEvent) String() string { return proto.CompactTextString(m) }
 func (*ClientSideEvent) ProtoMessage()    {}
 func (*ClientSideEvent) Descriptor() ([]byte, []int) {
-	return fileDescriptor_chat_2951844f32d85c95, []int{0}
+	return fileDescriptor_chat_e03d79763655cc5e, []int{0}
 }
 func (m *ClientSideEvent) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_ClientSideEvent.Unmarshal(m, b)
@@ -101,7 +101,7 @@ func (m *ServerSideEvent) Reset()         { *m = ServerSideEvent{} }
 func (m *ServerSideEvent) String() string { return proto.CompactTextString(m) }
 func (*ServerSideEvent) ProtoMessage()    {}
 func (*ServerSideEvent) Descriptor() ([]byte, []int) {
-	return fileDescriptor_chat_2951844f32d85c95, []int{1}
+	return fileDescriptor_chat_e03d79763655cc5e, []int{1}
 }
 func (m *ServerSideEvent) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_ServerSideEvent.Unmarshal(m, b)
@@ -153,7 +153,7 @@ const _ = grpc.SupportPackageIsVersion4
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type ChatumClient interface {
-	SayHello(ctx context.Context, opts ...grpc.CallOption) (Chatum_SayHelloClient, error)
+	Communicate(ctx context.Context, opts ...grpc.CallOption) (Chatum_CommunicateClient, error)
 }
 
 type chatumClient struct {
@@ -164,30 +164,30 @@ func NewChatumClient(cc *grpc.ClientConn) ChatumClient {
 	return &chatumClient{cc}
 }
 
-func (c *chatumClient) SayHello(ctx context.Context, opts ...grpc.CallOption) (Chatum_SayHelloClient, error) {
-	stream, err := c.cc.NewStream(ctx, &_Chatum_serviceDesc.Streams[0], "/chatum.Chatum/SayHello", opts...)
+func (c *chatumClient) Communicate(ctx context.Context, opts ...grpc.CallOption) (Chatum_CommunicateClient, error) {
+	stream, err := c.cc.NewStream(ctx, &_Chatum_serviceDesc.Streams[0], "/chatum.Chatum/Communicate", opts...)
 	if err != nil {
 		return nil, err
 	}
-	x := &chatumSayHelloClient{stream}
+	x := &chatumCommunicateClient{stream}
 	return x, nil
 }
 
-type Chatum_SayHelloClient interface {
+type Chatum_CommunicateClient interface {
 	Send(*ClientSideEvent) error
 	Recv() (*ServerSideEvent, error)
 	grpc.ClientStream
 }
 
-type chatumSayHelloClient struct {
+type chatumCommunicateClient struct {
 	grpc.ClientStream
 }
 
-func (x *chatumSayHelloClient) Send(m *ClientSideEvent) error {
+func (x *chatumCommunicateClient) Send(m *ClientSideEvent) error {
 	return x.ClientStream.SendMsg(m)
 }
 
-func (x *chatumSayHelloClient) Recv() (*ServerSideEvent, error) {
+func (x *chatumCommunicateClient) Recv() (*ServerSideEvent, error) {
 	m := new(ServerSideEvent)
 	if err := x.ClientStream.RecvMsg(m); err != nil {
 		return nil, err
@@ -197,32 +197,32 @@ func (x *chatumSayHelloClient) Recv() (*ServerSideEvent, error) {
 
 // ChatumServer is the server API for Chatum service.
 type ChatumServer interface {
-	SayHello(Chatum_SayHelloServer) error
+	Communicate(Chatum_CommunicateServer) error
 }
 
 func RegisterChatumServer(s *grpc.Server, srv ChatumServer) {
 	s.RegisterService(&_Chatum_serviceDesc, srv)
 }
 
-func _Chatum_SayHello_Handler(srv interface{}, stream grpc.ServerStream) error {
-	return srv.(ChatumServer).SayHello(&chatumSayHelloServer{stream})
+func _Chatum_Communicate_Handler(srv interface{}, stream grpc.ServerStream) error {
+	return srv.(ChatumServer).Communicate(&chatumCommunicateServer{stream})
 }
 
-type Chatum_SayHelloServer interface {
+type Chatum_CommunicateServer interface {
 	Send(*ServerSideEvent) error
 	Recv() (*ClientSideEvent, error)
 	grpc.ServerStream
 }
 
-type chatumSayHelloServer struct {
+type chatumCommunicateServer struct {
 	grpc.ServerStream
 }
 
-func (x *chatumSayHelloServer) Send(m *ServerSideEvent) error {
+func (x *chatumCommunicateServer) Send(m *ServerSideEvent) error {
 	return x.ServerStream.SendMsg(m)
 }
 
-func (x *chatumSayHelloServer) Recv() (*ClientSideEvent, error) {
+func (x *chatumCommunicateServer) Recv() (*ClientSideEvent, error) {
 	m := new(ClientSideEvent)
 	if err := x.ServerStream.RecvMsg(m); err != nil {
 		return nil, err
@@ -236,8 +236,8 @@ var _Chatum_serviceDesc = grpc.ServiceDesc{
 	Methods:     []grpc.MethodDesc{},
 	Streams: []grpc.StreamDesc{
 		{
-			StreamName:    "SayHello",
-			Handler:       _Chatum_SayHello_Handler,
+			StreamName:    "Communicate",
+			Handler:       _Chatum_Communicate_Handler,
 			ServerStreams: true,
 			ClientStreams: true,
 		},
@@ -245,10 +245,10 @@ var _Chatum_serviceDesc = grpc.ServiceDesc{
 	Metadata: "chat.proto",
 }
 
-func init() { proto.RegisterFile("chat.proto", fileDescriptor_chat_2951844f32d85c95) }
+func init() { proto.RegisterFile("chat.proto", fileDescriptor_chat_e03d79763655cc5e) }
 
-var fileDescriptor_chat_2951844f32d85c95 = []byte{
-	// 181 bytes of a gzipped FileDescriptorProto
+var fileDescriptor_chat_e03d79763655cc5e = []byte{
+	// 184 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0xe2, 0x4a, 0xce, 0x48, 0x2c,
 	0xd1, 0x2b, 0x28, 0xca, 0x2f, 0xc9, 0x17, 0x62, 0x03, 0xb1, 0x4b, 0x73, 0x95, 0x82, 0xb8, 0xf8,
 	0x9d, 0x73, 0x32, 0x53, 0xf3, 0x4a, 0x82, 0x33, 0x53, 0x52, 0x5d, 0xcb, 0x52, 0xf3, 0x4a, 0x84,
@@ -256,9 +256,9 @@ var fileDescriptor_chat_2951844f32d85c95 = []byte{
 	0x20, 0x2a, 0xf5, 0xc0, 0x92, 0x21, 0x95, 0x05, 0xa9, 0x41, 0x60, 0x69, 0x21, 0x09, 0x2e, 0xf6,
 	0xdc, 0xd4, 0xe2, 0xe2, 0xc4, 0xf4, 0x54, 0x09, 0x26, 0x05, 0x46, 0x0d, 0xce, 0x20, 0x18, 0x17,
 	0x64, 0x66, 0x70, 0x6a, 0x51, 0x59, 0x6a, 0x11, 0xf5, 0xcc, 0xd4, 0x92, 0xe0, 0xe2, 0x84, 0x2b,
-	0x16, 0xe2, 0xe6, 0x62, 0x77, 0x71, 0x75, 0x73, 0x0c, 0xf5, 0x09, 0x11, 0x60, 0x30, 0xf2, 0xe1,
-	0x62, 0x73, 0x06, 0x9b, 0x26, 0xe4, 0xc4, 0xc5, 0x11, 0x9c, 0x58, 0xe9, 0x91, 0x9a, 0x93, 0x93,
-	0x2f, 0x24, 0x0e, 0xb3, 0x02, 0xcd, 0x77, 0x52, 0x70, 0x09, 0x34, 0x27, 0x2a, 0x31, 0x68, 0x30,
-	0x1a, 0x30, 0x26, 0xb1, 0x81, 0x83, 0xc7, 0x18, 0x10, 0x00, 0x00, 0xff, 0xff, 0xc8, 0x00, 0x1d,
-	0xaf, 0x2c, 0x01, 0x00, 0x00,
+	0x16, 0xe2, 0xe6, 0x62, 0x77, 0x71, 0x75, 0x73, 0x0c, 0xf5, 0x09, 0x11, 0x60, 0x30, 0xf2, 0xe7,
+	0x62, 0x73, 0x06, 0x9b, 0x26, 0xe4, 0xca, 0xc5, 0xed, 0x9c, 0x9f, 0x9b, 0x5b, 0x9a, 0x97, 0x99,
+	0x9c, 0x58, 0x92, 0x2a, 0x24, 0x0e, 0xb3, 0x05, 0xcd, 0x83, 0x52, 0x70, 0x09, 0x34, 0x57, 0x2a,
+	0x31, 0x68, 0x30, 0x1a, 0x30, 0x26, 0xb1, 0x81, 0x43, 0xc8, 0x18, 0x10, 0x00, 0x00, 0xff, 0xff,
+	0x12, 0xd2, 0xe0, 0x2b, 0x2f, 0x01, 0x00, 0x00,
 }

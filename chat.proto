@@ -3,7 +3,7 @@ syntax = "proto3";
 package chatum;
 
 service Chatum {
-  rpc SayHello (stream ClientSideEvent) returns (stream ServerSideEvent) {}
+  rpc Communicate (stream ClientSideEvent) returns (stream ServerSideEvent) {}
 }
 
 enum EventType {
