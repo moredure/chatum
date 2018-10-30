@@ -8,6 +8,8 @@ service Chatum {
 
 enum EventType {
   DEFAULT = 0;
+  PING    = 1;
+  PONG    = 2;
 }
 
 message ClientSideEvent {
@@ -17,5 +19,6 @@ message ClientSideEvent {
 
 message ServerSideEvent {
   EventType type = 1;
-  string message = 2;
+  string username = 2;
+  string message = 3;
 }
